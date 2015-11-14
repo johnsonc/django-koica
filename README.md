@@ -32,9 +32,9 @@ Install
 - Run migrations
 - In your base template ("base.html") these blocks are required:
 
-	{% block extra_header %}{% endblock %} in <head>
-	{% block title %}{% endblock %} in <head><title>
-	{% block content %}{% endblock %} in <body>
+		{% block extra_header %}{% endblock %} in <head>
+		{% block title %}{% endblock %} in <head><title>
+		{% block content %}{% endblock %} in <body>
 
 Options
 --------------
