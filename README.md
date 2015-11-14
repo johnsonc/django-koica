@@ -1,7 +1,7 @@
 Django Koica
 ==============
 
-Simple Q&amp;A application with bootstrap templates
+Simple Q&amp;A application with bootstrap templates [ warning: this app is only available for french language at the time]
 
 Dependencies
 --------------
@@ -43,5 +43,7 @@ Note: this application is compatible with [django-xadmin](https://github.com/ssh
 Todo
 --------------
 
+- [ ] Translate in english (not internationalized yet)
+- [ ] Options to embed js and css dependencies
 - [ ] Tests
 - [ ] Make a release and package it in pip
