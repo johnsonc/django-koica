@@ -34,7 +34,7 @@ Install
 
 		{% block extra_header %}{% endblock %} in <head>
 		{% block title %}{% endblock %} in <head><title>
-		{% block content %}{% endblock %} in <body>
+		<div id="content" class="container">{% block content %}{% endblock %}</div> in <body>
 
 Options
 --------------
