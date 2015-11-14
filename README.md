@@ -37,6 +37,7 @@ To choose an url for your app add the settting:
 
 	KOICA_BASE_URL_SLUG = 'forum'
 
+Note: this application is compatible with [django-xadmin](https://github.com/sshwsfc/django-xadmin)
 
 Todo
 --------------
