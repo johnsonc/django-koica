@@ -1,4 +1,4 @@
-Django Allons
+Django Koica
 ==============
 
 Simple Q&amp;A application with bootstrap templates
