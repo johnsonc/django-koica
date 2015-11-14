@@ -1,25 +1,3 @@
-function toggle_from_id(id, speed="fast") {
-	$('#'+id).fadeToggle( speed );
-}
-
-function toggle_menu() {
-	if ($('#side_menu').css('visibility')=='hidden') {
-		$('#side_menu').css('visibility','visible');
-	}
-	else if ($('#side_menu').css('visibility')=='visible') {
-		$('#side_menu').css('visibility','hidden');
-	};
-}
-
-$(function() { 
-    $(".btn-loading").click(function(){
-        $(this).button('loading').delay(1000).queue(function() {
-            $(this).button('reset');
-            $(this).dequeue();
-        });        
-    });
-});
-
 function update_rating(koica_base_url, operator, question_slug, question_id, token) {
 	var url = "/"+koica_base_url+"/"+question_slug+"/rating/"+operator+"/";
 	var question_rating_url = "/"+koica_base_url+"/"+question_slug+"/rating/";
