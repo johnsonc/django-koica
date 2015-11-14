@@ -1,0 +1,29 @@
+{% load pygmentify staticfiles %}
+
+{% block extra_header %}
+<link rel="stylesheet" type="text/css" href="{% static 'django_pygments/css/pygments_default.css' %}" />
+{% endblock %}
+
+<h3>Utilisation du html</h3>
+	<p>Le html peut être utilisé pour poster, les tags autorisés sont:<br />
+		<i><blockquote>p i strong b ul ol li a h1 h2 h3 pre br img blockquote div</blockquote></i>
+		Les attributs autorisés sont:
+		<i><blockquote>href src width height lang class</blockquote></i>
+	</p>
+	<p>A noter: les sauts de ligne sont automatiquement convertis en &lt;br /&gt;</p>
+<h3>Code</h3>
+<p>Pour écrire du code il faut utiliser la balise &lt;pre lang=""&gt</p>
+<p>Exemple:</p>
+<p>&lt;pre lang="python"&gt;
+<pre>def foo():
+	print "bar"
+	return</pre>&lt;/pre&gt;<br /><br />
+Cela s'affichera comme suit:
+{% pygment %}
+<pre lang="python">
+def foo():
+    print "bar"
+    return
+</pre>{% endpygment %}
+</p>
+<p>Remplacer python par le language en question</p>

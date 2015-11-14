@@ -1,0 +1,20 @@
+{% extends template_to_extend %}
+{% load staticfiles %}
+
+{% block title %}Questions pour le tag {{ tag_slug }}{% endblock %}
+{% block extra_header %}
+<link rel="stylesheet" type="text/css" href="{% static 'django_pygments/css/pygments_default.css' %}" />
+<link rel="stylesheet" href="{% static 'koica/css/koica.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<h1 class="generic_centered">Questions pour le tag {{ tag_slug }}</h1>
+		{% include "koica/paginate.html" %}
+		{% include "koica/list_questions.html" %}
+		{% include "koica/paginate.html" %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+.num_questions {
+	padding:0 1em 1em 0;
+}
+.num_answers {
+	font-size:200%;
+}
+question_info_answered p.num_answers {
+	font-weight:bold;
+}
+.question_info {
+	width:8em;
+	border:1px solid #c1c0c2;
+}
+.question_info_answered {
+	background-color:green;
+	color:white !important;
+}
+.question_content_light .object_meta {
+	color:white;
+}
+.object_meta {
+	color:grey !important;
+	font-size:90% !important;
+	font-style:italic;
+}
+.comment {
+	font-size:90%;
+	border-top:1px solid #d3d3d3;
+	padding-top:1em;
+}
+.us-l {
+	margin-top:2em;
+}
+.ds-l {
+	margin-bottom:2em;
+}
+.rs-l {
+	margin-right:2em;
+}
+.sf {
+	font-size:85%;
+}
+/* ##################################### Tags buttons ##################################### */
+.tag_button {
+	border:none;
+	display:inline;
+	padding:0.3em;
+	margin:0 0.5em 0 0.5em;
+    color:white;
+    background-color: grey;
+	border-radius: 0.6em;
+	max-width:16em;
+}
+.tag_button_small {
+	order:none;
+	display:inline;
+	border:none;
+	padding:0.2em 0.5em 0.2em 0.5em;
+	max-width:10em;
+	color:white;
+    background-color: grey;
+	border-radius: 0.6em;
+	font-size:10px;
+	cursor:pointer;
+}
+.tag_button:hover {
+    background-color: green;
+    text-decoration: none;
+    cursor:pointer;
+}
+.tag_button:visited {
+    text-decoration: none;
+}
+.tag_sized_1 {
+	font-size:10px !important;
+}
+.tag_sized_2 {
+	font-size:12px !important;
+}
+.tag_sized_3 {
+	font-size:14px !important;
+}
+.tag_sized_4 {
+	font-size:16px !important;
+}
+.tag_sized_5 {
+	font-size:18px !important;
+	font-weight:bold;
+}
+.tag_sized_6 {
+	font-size:18px !important;
+	font-weight:bolder;
+}

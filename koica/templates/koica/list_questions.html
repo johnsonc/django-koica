@@ -1,0 +1,33 @@
+{% load pygmentify staticfiles %}
+
+<div class="row">
+{% for question in questions %}
+{% with question.question_answer.all|length as num_answers %}
+	<div class="col-sm-10 question_content">
+		<h3><a href="{% url 'question-detail' question.slug %}">{{ question.title }}</a></h3>
+		<p class="visible-xs">
+			<span{% if num_answers > 0 %} class="gb"{% endif %}>{{ num_answers }}</span> Réponse{% if num_answers != 1 %}s{% endif %}
+		</p>
+		<p>
+			{% pygment %}{{ question.text|safe|linebreaksbr|truncatewords_html:35 }}{% endpygment %}
+		</p>
+		<p class="object_meta">Par {{ question.posted_by.username }} il y a {{ question.creation_date|timesince }}</p>
+		{% with question.tags.all as tags %}
+			{% if tags %}
+				<p>{% for tag in tags %}
+					<a href="{% url 'question-tag' tag.slug %}">
+						<span class="label label-default">{{tag}}</span>
+					</a> 
+				{% endfor %}</p>
+			{% endif %}
+		{% endwith %}
+	</div>
+	<div class="col-sm-2 hidden-xs num_questions">
+		<div class="question_info{% if num_answers > 0 %} question_info_answered{% endif %} gc gp gus-l">
+			<p class="num_answers">{{ num_answers }}</p>
+			<p>Réponse{% if num_answers != 1 %}s{% endif %}</p>
+		</div>
+	</div>
+{% endwith %}
+{% endfor %}
+</div>

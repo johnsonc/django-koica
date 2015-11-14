@@ -1,0 +1,27 @@
+{% extends template_to_extend %}
+{% load staticfiles crispy_forms_tags %}
+
+{% block title %}Poser une question{% endblock %}
+{% block extra_header %}
+{% include "koica/autocomplete_js.html" %}
+<script>
+  $(function() {
+   	$( "#id_tags" ).tooltip({
+  		position: { my: "right top", at: "right bottom" }
+		});
+  	});
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<h1>Poser une question</h1>
+		<form action="" method="post">{% csrf_token %}
+		    {{ form|crispy }}
+		    <input class="btn btn-success btn-block" type="submit" value="Envoyer" />
+		</form>
+		{# include "questions/post_helptext.html" #}
+	</div>
+</div>
+{% endblock %}

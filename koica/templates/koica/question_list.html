@@ -1,0 +1,24 @@
+{% extends template_to_extend %}
+{% load staticfiles %}
+
+{% block title %}Questions{% endblock %}
+{% block extra_header %}
+<link rel="stylesheet" type="text/css" href="{% static 'django_pygments/css/pygments_default.css' %}" />
+<link rel="stylesheet" href="{% static 'koica/css/koica.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+    <div class="text-center">
+    	<a href="{% url 'question-add' %}" class="btn btn-primary pull-right us-l rs-l">
+    		<i class="fa fa-question-circle fa-lg"></i>&nbsp;&nbsp;Poser une question
+    	</a>
+    </div>
+    <h1>Dernières questions</h1>
+    <p class="clearfix">{% include "koica/paginate.html" %}</p>
+    {% include "koica/list_questions.html" %}
+    <p class="generic_upspaced_large">{% include "koica/paginate.html" %}</p>
+    </div>
+</div>
+{% endblock %}

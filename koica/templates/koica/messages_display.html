@@ -1,0 +1,30 @@
+{% if messages %}
+<script>
+$(function() {
+    $( "#messages" ).dialog({
+      modal: true,
+      closeOnEscape: true,
+      hide: { effect: "fade", duration: 800 },
+      buttons: {
+        Fermer: function() {
+          $( this ).dialog( "close" );
+        },
+        //icons: {
+        //primary: "ui-icon-alert"
+      	//},
+      },
+
+    });
+  });
+setTimeout(
+		function() 
+		{
+		$( "#messages" ).dialog("close");
+		}, 2500);
+</script>
+<div id="messages" class="gp">
+	{% for message in messages %}
+	    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+	{% endfor %}
+</div>
+{% endif %}

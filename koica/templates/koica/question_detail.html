@@ -1,0 +1,127 @@
+{% extends template_to_extend %}
+{% load pygmentify staticfiles %}
+
+{% block title %}{{ question.title }}{% endblock %}
+{% block extra_header %}
+<link rel="stylesheet" type="text/css" href="{% static 'django_pygments/css/pygments_default.css' %}" />
+<link rel="stylesheet" href="{% static 'koica/css/koica.css' %}">
+<script src="{% static 'koica/js/utils.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+    	<h1 class="text-center">{{ question.title }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="rating col-xs-2 col-sm-1">
+		<div class="text-center"><a href="javascript:update_rating('{{ koica_base_url }}','plus','{{ question.slug }}','{{ question.id }}', '{{ csrf_token }}')"><img id="{{ question.id }}_up" src="{% static "koica/img/up.png" %}" alt="+" /></a></div>
+		<div id="rating_number" class="text-center generic_padded generic_big_font">{{ question.rating }}</div>
+		<div class="text-center"><a href="javascript:update_rating('{{ koica_base_url }}','minus','{{ question.slug }}','{{ question.id }}', '{{ csrf_token }}')"><img id="{{ question.id }}_down" src="{% static "koica/img/down.png" %}" alt="-" /></a></div>
+	</div>
+	<div class="rating col-xs-10 col-sm-11">
+	    <p>{% pygment %}{{ question.text|safe|linebreaksbr }}{% endpygment %}</p>
+    	{% with question.tags.all as tags %}
+    		<p>
+    			{% for tag in question.tags.all %}
+    			<a href="{% url 'question-tag' tag.slug %}">
+					<span class="label label-default">{{tag}}</span>
+				</a> 
+    			{% endfor %}
+    		</p>
+    	{% endwith %}
+    	<p class="object_meta">Par {{ question.posted_by_username }} il y a {{ question.creation_date|timesince }} {% if question.edition_date.date %}- Edité le {{ question.edition_date }}{% endif %}</p>
+    	<p>
+    		{% if question.posted_by == request.user %}
+    			<a href="{% url 'edit-form' question.slug %}" class="btn btn-default btn-xs">Editer la question</a>
+    		{% endif %}
+    		{% if not question.is_duplicated %}
+    			<a href="{% url 'question-report-duplicated' question.slug %}" class="btn btn-default btn-xs">Signaler une question dupliquée</a>
+    		{% endif %}
+    	</p>
+	    {% if question.is_duplicated %}
+	    	<p>
+	    		<span class="label label-warning">Question dupliquée</span> depuis <a href="{% url 'question-detail' question.duplicated_from.slug %}">{{ question.duplicated_from.title }}</a>
+	    	</p>
+	    {% endif %}
+	    </p>
+	</div>
+</div>
+<p class="row">
+	<div class="col-xs-12 text-center">
+		<div class="btn-group hidden-xs" role="group">
+			<a href="{% url 'answer-form' question.slug %}" class="btn btn-primary">Poster une réponse</a>
+			<a href="{% url 'comment-form' question.slug %}" class="btn btn-default">Poster un commentaire</a>
+			<a href="{% url 'question-list' %}" class="btn btn-default">Retour à la liste des questions</a>
+		</div>
+		<div class="btn-group-vertical visible-xs" role="group">
+			<a href="{% url 'answer-form' question.slug %}" class="btn btn-primary btn-block">Poster une réponse</a>
+			<a href="{% url 'comment-form' question.slug %}" class="btn btn-default btn-block">Poster un commentaire</a>
+			<a href="{% url 'question-list' %}" class="btn btn-default btn-block">Retour à la liste des questions</a>
+		</div>
+	</div>
+</p>
+<p class="row">
+	<div class="col-xs-offset-1 col-xs-11 us-l">
+		{% for comment in question.question_comment.all %}
+			<p class="comment ds-l">
+				{{ comment.text|linebreaksbr }} 
+				<span class="object_meta">- par {{ comment.posted_by_username }} il y a {{ comment.creation_date|timesince }}</span>
+			</p>
+		{% endfor %}
+	</div>
+</p>
+<p class="row">
+	<div class="col-xs-12">
+		<h2 class="text-center">{{ answers|length }} Réponse{% if answers|length != 1 %}s{% endif %}</h2>
+	</div>
+</p>
+{% for answer in answers %}
+	<p class="row">
+		<div class="rating col-xs-2 col-sm-1">
+    		<div class="text-center">
+    			<a href="javascript:update_answer_rating('{{ koica_base_url }}','plus','{{ answer.pk }}', '{{ csrf_token }}')">
+    				<img  id="{{ answer.pk }}_answer_rating_up" src="{% static "koica/img/up.png" %}" alt="+" />
+    			</a>
+    		</div>
+    		<div id="{{ answer.pk }}_answer_rating" class="text-center generic_padded generic_big_font">{{ answer.rating }}</div>
+    		<div class="text-center">
+    			<a href="javascript:update_answer_rating('{{ koica_base_url }}','minus','{{ answer.pk }}', '{{ csrf_token }}')">
+    				<img  id="{{ answer.pk }}_answer_rating_down" src="{% static "koica/img/down.png" %}" alt="-" />
+    			</a>
+    		</div>
+			<div id="{{ answer.id }}_approve" class="text-center generic_upspaced" title="Valider la réponse en tant qu'auteur de la question">
+			{% if not answer.approved %}
+				{% if request.user == question.posted_by %}
+					<div><a href="javascript:approve_answer('{{ koica_base_url }}','{{ answer.id }}', '{{ csrf_token }}' )"><img src="{% static "koica/img/approved.png" %}" height="20" alt="" /></a></div>
+					<div class="sf"><a href="javascript:approve_answer('{{ koica_base_url }}','{{ answer.id }}', '{{ csrf_token }}' )">Approuver</a></div>
+				{% endif %}
+			{% else %}
+				<img src="{% static "koica/img/approved.png" %}" alt="" title="Réponse validée par l'auteur de la question" />
+			{% endif %}
+			</div>
+    	</div> 	
+    	<div class="rating col-xs-10 col-sm-11">
+			<p class="answer">{% pygment %}{{ answer.text|safe|linebreaksbr }}{% endpygment %}</p>
+			<p class="object_meta">par {{ answer.posted_by_username }} il y a {{ answer.creation_date|timesince }} {% if answer.edition_date.date %}- Edité le {{ answer.edition_date }}{% endif %}</p>
+			<div>
+				{% if answer.posted_by == request.user %}
+					<a href="{% url 'answer-edit-form' answer.pk %}" class="btn btn-xs btn-default">Editer la réponse</a>
+				{% endif %}
+				<a href="{% url 'comment-answer-form' slug=question.slug answer_pk=answer.pk %}" class="btn btn-xs btn-default">Poster un commentaire</a>
+			</div>
+		</div>
+	</p>
+	<p class="row">
+		<div class="col-xs-offset-1 col-xs-11 ds-l">
+			{% for comment in answer.answer_comment.all %}
+				<p class="comment ds-l">
+					{{ comment.text|linebreaksbr }} 
+					<span class="object_meta">- par {{ comment.posted_by_username }} il y a {{ comment.creation_date|timesince }}</span>
+				</p>
+			{% endfor %}
+		</div>
+	</p>
+{% endfor %}
+{% endblock %}
