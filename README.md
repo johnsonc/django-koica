@@ -43,4 +43,4 @@ Todo
 --------------
 
 - [ ] Tests
-- [ ] Package the whole thing in pip
+- [ ] Make a release and package it in pip
