@@ -15,7 +15,8 @@ Install
 --------------
 
 - Clone the repository
-- Add 'koica', and 'django_pygments', to INSTALLLED_APPS
+- Get the dependencies
+- Add 'koica', and 'django_pygments', to INSTALLED_APPS
 - Add this to urls.py:
 
 		from django.conf import settings
@@ -33,7 +34,7 @@ Install
 Options
 --------------
 
-To choose an url for your app add the settting:
+To choose an url for your app add this setting (if not set default is '/questions/'):
 
 	KOICA_BASE_URL_SLUG = 'forum'
 
