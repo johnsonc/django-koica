@@ -6,6 +6,7 @@ Simple Q&amp;A application with bootstrap templates [ warning: this app is only 
 Dependencies
 --------------
 
+- django 1.8
 - django-pygments
 - jquery
 - jquery ui
