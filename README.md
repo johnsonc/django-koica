@@ -37,14 +37,14 @@ Install
 		{% block title %}{% endblock %} in <head><title>
 		<div class="container">{% block content %}{% endblock %}</div> in <body>
 
-Options
+Note: this application is compatible with [django-xadmin](https://github.com/sshwsfc/django-xadmin)
+
+Settings
 --------------
 
 To choose an url for your app add this setting (if not set default is '/questions/'):
 
 	KOICA_BASE_URL_SLUG = 'forum'
-
-Note: this application is compatible with [django-xadmin](https://github.com/sshwsfc/django-xadmin)
 
 Todo
 --------------
