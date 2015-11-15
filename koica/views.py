@@ -99,7 +99,7 @@ class AnswerCreateView(UserCheckMixin, CreateView):
         if 'slug' in self.kwargs:
             slug = self.kwargs['slug']
         else:
-            return reverse('koica-list')
+            return reverse('question-list')
         return reverse('question-detail', kwargs={'slug': slug})
     
     def get_context_data(self, **kwargs):
@@ -141,7 +141,7 @@ class CommentCreateView(UserCheckMixin, CreateView):
         if 'slug' in self.kwargs:
             slug = self.kwargs['slug']
         else:
-            return reverse('koica-list')
+            return reverse('question-list')
         return reverse('question-detail', kwargs={'slug': slug})
     
     def get_context_data(self, **kwargs):
@@ -183,7 +183,7 @@ class CommentAnswerCreateView(UserCheckMixin, CreateView):
         if 'slug' in self.kwargs:
             slug = self.kwargs['slug']
         else:
-            return reverse('koica-list')
+            return reverse('question-list')
         return reverse('question-detail', kwargs={'slug': slug})
     
     def get_context_data(self, **kwargs):
