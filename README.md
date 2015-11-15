@@ -51,5 +51,6 @@ Todo
 
 - [ ] Translate in english (not internationalized yet)
 - [ ] Options to embed js and css dependencies
+- [ ] Option to use Pygments or not 
 - [ ] Tests
 - [ ] Make a release and package it in pip
