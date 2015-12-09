@@ -10,15 +10,20 @@
 {% block content %}
 <div class="row">
 	<div class="col-xs-12">
-    <div class="text-center">
-    	<a href="{% url 'question-add' %}" class="btn btn-primary pull-right us-l rs-l">
-    		<i class="fa fa-question-circle fa-lg"></i>&nbsp;&nbsp;Poser une question
-    	</a>
-    </div>
-    <h1>Dernières questions</h1>
-    <p class="clearfix">{% include "koica/paginate.html" %}</p>
-    {% include "koica/list_questions.html" %}
-    <p class="generic_upspaced_large">{% include "koica/paginate.html" %}</p>
+	    <div class=" pull-right us-l rs-l hidden-xs hidden-sm hidden-md">
+	    	<a href="{% url 'question-add' %}" class="btn btn-primary">
+	    		<i class="fa fa-question-circle fa-lg"></i>&nbsp;&nbsp;Poser une question
+	    	</a>
+	    </div>
+	    <h1>Dernières questions</h1>
+	    <div class=" text-center us-l visible-xs visible-sm visible-md">
+	    	<a href="{% url 'question-add' %}" class="btn btn-primary">
+	    		<i class="fa fa-question-circle fa-lg"></i>&nbsp;&nbsp;Poser une question
+	    	</a>
+	    </div>
+	    <p class="clearfix">{% include "koica/paginate.html" %}</p>
+	    {% include "koica/list_questions.html" %}
+	    <p class="generic_upspaced_large">{% include "koica/paginate.html" %}</p>
     </div>
 </div>
 {% endblock %}

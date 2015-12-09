@@ -1,5 +1,5 @@
 {% extends template_to_extend %}
-{% load pygmentify staticfiles crispy_forms_tags %}
+{% load pygmentify staticfiles bootstrap %}
 
 {% block extra_header %}
 <link rel="stylesheet" type="text/css" href="{% static 'django_pygments/css/pygments_default.css' %}" />
@@ -9,13 +9,16 @@
 {% block title %}Editer une question{% endblock %}
 
 {% block content %}
-<h1>Editer une question</h1>
-<form action="" method="post">{% csrf_token %}
-<form action="" method="post">{% csrf_token %}
-    {{ form|crispy }}
-    <p><input class="btn btn-success btn-block" type="submit" value="Envoyer" /></p>
-</form>
-<p class="us-l ds-l text-center"><a href="{% url 'question-detail' question.slug %}" class="btn btn-default">Retour à la question</a></p>
-<h3>Question</h3>
-<p class="us-l">{% pygment %}{{ question.text|safe|linebreaksbr }}{% endpygment %}</p>
+<div class="row">
+	<div class="col-xs-12 col-md-offset-1 col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 col-lg-offset-2">
+		<h1>Editer une question</h1>
+		<form action="" method="post">{% csrf_token %}
+		    {{ form|bootstrap }}
+		    <p><input class="btn btn-success btn-block" type="submit" value="Envoyer" /></p>
+		</form>
+		<p class="gus-l gds-l text-center"><a href="{% url 'question-detail' question.slug %}" class="btn btn-default">Retour à la question</a></p>
+		<h3>Question</h3>
+		<p class="us-l">{% pygment %}{{ question.text|safe|linebreaksbr }}{% endpygment %}</p>
+	</div>
+</div>
 {% endblock %}

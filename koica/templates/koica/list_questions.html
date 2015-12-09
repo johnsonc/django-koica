@@ -4,7 +4,7 @@
 {% for question in questions %}
 {% with question.question_answer.all|length as num_answers %}
 	<div class="col-sm-10 question_content">
-		<h3><a href="{% url 'question-detail' question.slug %}">{{ question.title }}</a></h3>
+		<h3 class="gl"><a href="{% url 'question-detail' question.slug %}">{{ question.title }}</a></h3>
 		<p class="visible-xs">
 			<span{% if num_answers > 0 %} class="gb"{% endif %}>{{ num_answers }}</span> Réponse{% if num_answers != 1 %}s{% endif %}
 		</p>

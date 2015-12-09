@@ -1,5 +1,5 @@
 {% extends template_to_extend %}
-{% load pygmentify staticfiles %}
+{% load pygmentify staticfiles koica %}
 
 {% block title %}{{ question.title }}{% endblock %}
 {% block extra_header %}
@@ -21,6 +21,13 @@
 		<div class="text-center"><a href="javascript:update_rating('{{ koica_base_url }}','minus','{{ question.slug }}','{{ question.id }}', '{{ csrf_token }}')"><img id="{{ question.id }}_down" src="{% static "koica/img/down.png" %}" alt="-" /></a></div>
 	</div>
 	<div class="rating col-xs-10 col-sm-11">
+		{% if is_moderateur %}
+			<div class="pull-right">
+				<a href="/admin/koica/question/{{ question.pk }}/" target="_blank">
+					<i class="fa fa-edit fa-lg"></i>&nbsp;Editer
+				</a>
+			</div>
+		{% endif %}
 	    <p>{% pygment %}{{ question.text|safe|linebreaksbr }}{% endpygment %}</p>
     	{% with question.tags.all as tags %}
     		<p>
@@ -37,7 +44,7 @@
     			<a href="{% url 'edit-form' question.slug %}" class="btn btn-default btn-xs">Editer la question</a>
     		{% endif %}
     		{% if not question.is_duplicated %}
-    			<a href="{% url 'question-report-duplicated' question.slug %}" class="btn btn-default btn-xs">Signaler une question dupliquée</a>
+    			<a href="{% url 'question-report-duplicated' question.slug %}" class="btn btn-link btn-xs">Signaler une question dupliquée</a>
     		{% endif %}
     	</p>
 	    {% if question.is_duplicated %}
@@ -93,7 +100,7 @@
     		</div>
 			<div id="{{ answer.id }}_approve" class="text-center generic_upspaced" title="Valider la réponse en tant qu'auteur de la question">
 			{% if not answer.approved %}
-				{% if request.user == question.posted_by %}
+				{% if user == question.posted_by and not question.is_approved  %}
 					<div><a href="javascript:approve_answer('{{ koica_base_url }}','{{ answer.id }}', '{{ csrf_token }}' )"><img src="{% static "koica/img/approved.png" %}" height="20" alt="" /></a></div>
 					<div class="sf"><a href="javascript:approve_answer('{{ koica_base_url }}','{{ answer.id }}', '{{ csrf_token }}' )">Approuver</a></div>
 				{% endif %}
@@ -103,6 +110,13 @@
 			</div>
     	</div> 	
     	<div class="rating col-xs-10 col-sm-11">
+    		{% if is_moderateur %}
+			<div class="pull-right">
+				<a href="/admin/koica/answer/{{ answer.pk }}/" target="_blank">
+					<i class="fa fa-edit fa-lg"></i>&nbsp;Editer
+				</a>
+			</div>
+			{% endif %}
 			<p class="answer">{% pygment %}{{ answer.text|safe|linebreaksbr }}{% endpygment %}</p>
 			<p class="object_meta">par {{ answer.posted_by_username }} il y a {{ answer.creation_date|timesince }} {% if answer.edition_date.date %}- Edité le {{ answer.edition_date }}{% endif %}</p>
 			<div>
